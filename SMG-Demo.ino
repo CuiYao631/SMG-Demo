@@ -1,3 +1,6 @@
+//CuiYao
+
+
 const int TrigPin = 4;     //设置发射脚位，对应ESP8266 D2
 const int EchoPin = 5;    //设置接收脚位，对应ESP8266 D1
 float cm;                 //浮点型数据类型（加小数点，提高精准度）
