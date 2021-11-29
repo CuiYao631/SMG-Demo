@@ -32,10 +32,10 @@ const uint8_t LED_0[10][29] = {
   {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,0,0,0,0,0,},             //0
 };
 
-int i = 0;
-
-int g=0;
+int i = 6;
 int s=9;
+int g=9;
+
 
 void setup() {
   Serial.begin(9600);
@@ -74,29 +74,51 @@ void loop() {
 }
 
 void shuowLED(){
-  if (i>9){
-    i=0;
+  if (i==9&&s==9&&g==10){
+     return;
+  }
+  if (g>9){
+    g=0;
     s++;
    }
    if(s>9){
       s=0;
-      g++;
+      i++;
    }
-   if (g>9){
-       g=0;
+   if (i>9){
+       i=0;
    }
    
    pixels.clear();
      //********LED*************
   for (uint8_t j = 0; j < NUMPIXELS/3; j++) {
+   int b_b=LED_0[i][j];
+   int s_b=LED_0[s][j];
+   int g_b=LED_0[g][j];
+   int b_g=LED_0[i][j];
+   int s_g=LED_0[s][j];
+   int g_g=LED_0[g][j];
+   if(i>8){
+    b_b=0;
+    s_b=0;
+    g_b=0;
+    if(s>4){
+      b_g=0;
+      s_g=0;
+      g_g=0;
+    }
+   }
    
-    pixels.setPixelColor(j, LED_0[g][j],LED_0[g][j],LED_0[g][j]);
-    pixels.setPixelColor(j+29, LED_0[s][j],LED_0[s][j],LED_0[s][j]);
-    pixels.setPixelColor(j+29*2, LED_0[i][j],LED_0[i][j],LED_0[i][j]);
+    pixels.setPixelColor(j, LED_0[i][j],b_g,b_b);
+    
+    pixels.setPixelColor(j+29, LED_0[s][j],s_g,s_b);
+    
+    pixels.setPixelColor(j+29*2, LED_0[g][j],g_g,g_b);
+    
     pixels.show();
 
    }
    
     
-    i++;
+    g++;
 }
